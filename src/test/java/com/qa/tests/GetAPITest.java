@@ -23,6 +23,10 @@ public class GetAPITest extends TestBase{
 	String serviceURL;
 	String apiURL;
 	String url;
+	HashMap<String, String> headerMap;
+	
+	String per_pageCount;
+	int statusCode;
 	
 	
 	@BeforeMethod
@@ -31,20 +35,20 @@ public class GetAPITest extends TestBase{
 		serviceURL = prop.getProperty("URL");
 		apiURL = prop.getProperty("apiURL");
 		url = serviceURL + apiURL;
+		headerMap = new HashMap<String, String>();
+		headerMap.put("Content-Type","application/json");
 		
 	}
 	
-	@Test
-	public void getAPITest() throws ParseException, IOException {
+	@Test (priority=1)
+	public void getAPITestWithoutHeaders() throws ParseException, IOException {
 		restClient = new RestClient();
 		CloseableHttpResponse closeableHttpResponse = restClient.get(url);
 		
-		// Status code
-		int statusCode = closeableHttpResponse.getStatusLine().getStatusCode();
+		// Status code assertion method
+		statusCode = closeableHttpResponse.getStatusLine().getStatusCode();
 		System.out.println("Status Code ----> "+statusCode);
-		
-		//Status Code Assertion
-		Assert.assertEquals(statusCode, responseStatusCode_200, "Status code is not 200. Status code is: " + statusCode);
+		Assert.assertEquals(statusCode, responseStatusCode_200, "Status code is not "+responseStatusCode_200+". Status code is: " + statusCode);
 		
 		// Json response
 		String responseString = EntityUtils.toString(closeableHttpResponse.getEntity(), "UTF-8");
@@ -52,9 +56,10 @@ public class GetAPITest extends TestBase{
 		System.out.println("Response Json from API --->"+responseJson);
 		
 		//Json response Assertion
-		System.out.println(TestUtil.getValueByJPath(responseJson, "/data[0]/last_name"));	
+		per_pageCount = TestUtil.getValueByJPath(responseJson, "/per_page");
+		Assert.assertEquals(per_pageCount, "6", "per page count is not 6. per page value is: " + per_pageCount);	
 		
-		// All headers
+		// Get All headers message
 		Header[] headerMessageArray = closeableHttpResponse.getAllHeaders();
 		HashMap<String,String> allHeader = new HashMap<String, String>();
 		for (Header header : headerMessageArray) 
@@ -62,5 +67,35 @@ public class GetAPITest extends TestBase{
 			allHeader.put(header.getName(), header.getValue());
 		}
 		System.out.println("Response from header --->"+allHeader);
-	} 
+	}
+	
+	@Test (priority=2)
+	public void getAPITestWithHeaders() throws ParseException, IOException {
+		restClient = new RestClient();
+		CloseableHttpResponse closeableHttpResponse = restClient.get(url, headerMap);
+
+		// Status code assertion method
+		statusCode = closeableHttpResponse.getStatusLine().getStatusCode();
+		System.out.println("Status Code ----> "+statusCode);
+		Assert.assertEquals(statusCode, responseStatusCode_200, "Status code is not "+responseStatusCode_200+". Status code is: " + statusCode);
+		
+		// Json response
+		String responseString = EntityUtils.toString(closeableHttpResponse.getEntity(), "UTF-8");
+		JSONObject responseJson = new JSONObject(responseString);
+		System.out.println("Response Json from API --->"+responseJson);
+		
+		//Json response Assertion
+		per_pageCount = TestUtil.getValueByJPath(responseJson, "/per_page");
+		Assert.assertEquals(per_pageCount, "6", "per page count is not 6. per page value is: " + per_pageCount);	
+		
+		// Get All headers message
+		Header[] headerMessageArray = closeableHttpResponse.getAllHeaders();
+		HashMap<String,String> allHeader = new HashMap<String, String>();
+		for (Header header : headerMessageArray) 
+		{
+			allHeader.put(header.getName(), header.getValue());
+		}
+		System.out.println("Response from header --->"+allHeader);
+		
+	}
 }
