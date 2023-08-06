@@ -2,20 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-07-14T11:26:25 IST" name="Default suite" finished-at="2023-07-14T11:26:27 IST" duration-ms="1456">
+  <suite started-at="2023-08-06T22:47:29 IST" name="Default suite" finished-at="2023-08-06T22:47:33 IST" duration-ms="3787">
     <groups>
     </groups>
-    <test started-at="2023-07-14T11:26:25 IST" name="Default test" finished-at="2023-07-14T11:26:27 IST" duration-ms="1456">
-      <class name="com.qa.tests.PostAPITest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.qa.tests.PostAPITest@6cd28fa7]" started-at="2023-07-14T11:26:25 IST" name="setUp" finished-at="2023-07-14T11:26:25 IST" duration-ms="16" status="PASS">
+    <test started-at="2023-08-06T22:47:29 IST" name="Default test" finished-at="2023-08-06T22:47:33 IST" duration-ms="3787">
+      <class name="com.qa.tests.GetCallBDD">
+        <test-method signature="getCallBdd()[pri:0, instance:com.qa.tests.GetCallBDD@4fb3ee4e]" started-at="2023-08-06T22:47:29 IST" name="getCallBdd" finished-at="2023-08-06T22:47:33 IST" duration-ms="3724" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="postApiTest()[pri:0, instance:com.qa.tests.PostAPITest@6cd28fa7]" started-at="2023-07-14T11:26:25 IST" name="postApiTest" finished-at="2023-07-14T11:26:27 IST" duration-ms="1355" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- postApiTest -->
-      </class> <!-- com.qa.tests.PostAPITest -->
+        </test-method> <!-- getCallBdd -->
+      </class> <!-- com.qa.tests.GetCallBDD -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -75,6 +75,5 @@ public class PostAPITest extends TestBase{
 		
 		System.out.println("Response name is ---->"+userRespObj.getName());
 		System.out.println("Response job is ---->"+userRespObj.getJob());
-		
 	}
 }
